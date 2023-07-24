@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    {% load static %}
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'css\reset.css' %}"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'css\style.css' %}"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{% static 'css\medias.css' %}"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css"
+      integrity="sha512-Z0kTB03S7BU+JFU0nw9mjSBcRnZm2Bvm0tzOX9/OuOuz01XQfOpa0w/N9u6Jf2f1OAdegdIPWZ9nIZZ+keEvBw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css "
+      rel="stylesheet"
+    />
+    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
+
+    <title>lookfeminine</title>
+  </head>
+  <script>
+    var splide = new Splide(".splide", {
+      type: "loop",
+      perPage: 3,
+      perMove: 1,
+    });
+
+    splide.mount();
+  </script>
+  <body>
+<div class="home" style='background-image: url("{% static 'images/home.jpg'%}")'>
+    <div class="header">
+      <div class="left">
+        <div class="menu-icon">
+          <a href="#"><img src="{% static 'images/menu.png' %} " /></a>
+        </div>
+      </div>
+      <div class="center">
+        <div class="logo">
+          <a href="index.html"
+            ><img
+              class="logo-img"
+              src="{% static 'images/logo.png' %}"
+              style="width: 250px; height: 60px"
+          /></a>
+        </div>
+      </div>
+      <div class="right">
+        <div class="search">
+          <a href="#"><img src="{% static 'images/search.png' %} " /></a>
+        </div>
+        <div class="cart">
+          <a href="#"><img src="{% static 'images/cart.png' %} " /></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="title--button">
+      <div class="title-home">
+        <p>Fii îndrăzneață<br />Fii feminină<br />Fii lookfeminine</p>
+      </div>
+      <div class="btn-explore">
+        <a href="#">Cumpără acum</a>
+      </div>
+  </div>
+    </div>
+    <div class="bestseller-page">
+      <div class="bestseller-title">
+        <p>Bestseller</p>
+      </div>
+
+      <div class="cards">
+        <div class="arrow-left">
+          <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
+        </div>
+        {% for product in products %}
+        <div class="card">
+          <a href="{% url 'product' product.id %}">
+            <div class="image-card"><img src="{{ product.image.url }}" /></div>
+            <div class="title-card">{{ product.name }}</div>
+            <div class="price">{{ product.price }} MDL</div>
+            <div class="rating">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <i class="fa-regular fa-star"></i>
+              <p>(6)</p>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+        <div class="arrow-right">
+          <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+      </div>
+      </div>
+  
+  </body>
+</html>
