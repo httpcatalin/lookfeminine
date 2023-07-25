@@ -56,6 +56,13 @@ MEDIA_URL = '/images/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51NXKACDntZNInQFsVArVnnAmQjUAlKBaPeNwPnQUQdTzMqZ1o42ayepTxkIFdiNo49881xWMw70XdwmVaYd2cvqP00HqQpirvm'
+STRIPE_SECRET_KEY = 'sk_test_51NXKACDntZNInQFsipSXi13yDMjXSkkMhIKMKAiu03mwOXsoR0p5HUsAlU9yih3ggtANj2lCMJXtGcg92F9ITvJj009s2a2vC4'
+
+
+
 ROOT_URLCONF = 'lookfeminine.urls'
 
 TEMPLATES = [

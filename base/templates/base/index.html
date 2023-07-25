@@ -38,29 +38,36 @@
       rel="stylesheet"
     />
     <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="{% static 'JS/script.js' %}" charset="utf-8"></script>
     <title>lookfeminine</title>
   </head>
+  
   <script>
-    var splide = new Splide(".splide", {
-      type: "loop",
-      perPage: 3,
-      perMove: 1,
-    });
-
-    splide.mount();
+    function show() {
+      document.getElementById('sidebar').classList.toggle('active');
+    }
   </script>
+  
   <body>
 <div class="home" style='background-image: url("{% static 'images/home.jpg'%}")'>
     <div class="header">
       <div class="left">
         <div class="menu-icon">
-          <a href="#"><img src="{% static 'images/menu.png' %} " /></a>
+          <div id="sidebar">
+            <div class="toggle-btn"><a href="#"><img src="{% static 'images/menu.png' %}"></a></div>
+            <ul>
+              {% for category in categories %}
+              <li><a href="{% url 'category' category.id %}">{{category.name}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
         </div>
+        
       </div>
       <div class="center">
         <div class="logo">
-          <a href="index.html"
+          <a href="{% url 'home'  %}"
             ><img
               class="logo-img"
               src="{% static 'images/logo.png' %}"
@@ -97,22 +104,29 @@
           <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
         </div>
         {% for product in products %}
+        {% if product.bestseller %}
         <div class="card">
-          <a href="{% url 'product' product.id %}">
-            <div class="image-card"><img src="{{ product.image.url }}" /></div>
+            <a href="{% url 'product' product.id %}">
+                {% with product.images.first as first_image %}
+                {% if first_image %}
+                    <div class="image-card"><img src="{{ first_image.image.url }}" /></div>
+                {% endif %}
+                {% endwith %}
             <div class="title-card">{{ product.name }}</div>
             <div class="price">{{ product.price }} MDL</div>
             <div class="rating">
-              <i class="fa-solid fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <i class="fa-regular fa-star"></i>
-              <p>(6)</p>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <i class="fa-regular fa-star"></i>
+                <p>(6)</p>
             </div>
-          </a>
-        </div>
-        {% endfor %}
+        </a>
+    </div>
+    {% endif %}
+{% endfor %}
+
 
         <div class="arrow-right">
           <a href="#"><i class="fa-solid fa-arrow-right"></i></a>

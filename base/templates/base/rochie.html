@@ -14,11 +14,7 @@
       rel="stylesheet"
       href="{% static 'css\style.css' %}"
     />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="{% static 'css\medias.css' %}"
-    />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
@@ -37,11 +33,16 @@
       href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css "
       rel="stylesheet"
     />
-    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-
     <title>lookfeminine</title>
   </head>
-  
+
+  <style>
+    .color-choose input[type="radio"]:checked + label span {
+      background-image: url("{% static 'images/check-icn.svg' %}");
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
   <body>
     <div class="header">
       <div class="left">
@@ -51,7 +52,7 @@
       </div>
       <div class="center">
         <div class="logo">
-          <a href="index.html"
+          <a href="{% url 'home'  %}"
             ><img
               class="logo-img"
               src="{% static 'images/logo.png' %}"
@@ -69,6 +70,72 @@
       </div>
     </div>
 
-    
+    <main class="container">
+      <div class="left-column">
+        {% for image in product.images.all %}
+        <img data-image="{{ image.color.name}}" src="{{ image.image.url  }}" alt="" {% if forloop.last %} class="active"{% endif %} />
+ 
+        {% endfor %}
+      </div>
+
+      <div class="right-column">
+        <div class="product-description">
+          <span>{{product.category}}</span>
+          <h1>{{ product.name }}</h1>
+          <p>{{product.description}}</p>
+        </div>
+
+        <div class="product-configuration">
+          <div class="product-color">
+            <span>Color</span>
+
+            <div class="color-choose">
+              {% for color in product.colors.all %}
+              <div>
+                <input
+                  data-image="{{ color.name }}"
+                  type="radio"
+                  id="{{ color.name }}"
+                  name="color"
+                  value="{{ color.name }}"
+                  checked
+                />
+                <label for="{{ color.name }}">
+                  <span style="background-color: {{ color.hex_code }};"></span
+                ></label>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <!-- Cable Configuration -->
+          <div class="cable-config">
+            <span>Sizes</span>
+
+            <div class="cable-choose">
+              {% for size in product.size.all %}
+              <button>{{size.name}}</button>
+              {% endfor %}
+            </div>
+            
+              
+              <span>COD: {{ product.code }}</span>
+            
+          </div>
+        </div>
+
+        <!-- Product Pricing -->
+        <div class="product-price">
+          <span>{{product.price}} MDL</span>
+          <div class="btns-buy">
+          <a href="#" class="cart-btn">Add to cart</a>
+          <a href="{% url 'process_payment'  %}" class="cart-btn">Buy Now</a></div>
+        </div>
+      </div>
+    </main>
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
+    <script src="{% static 'JS/script.js' %}" charset="utf-8"></script>
   </body>
 </html>
