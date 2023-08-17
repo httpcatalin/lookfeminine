@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+ALLOWED_HOSTS = ["*"]
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/images/'
