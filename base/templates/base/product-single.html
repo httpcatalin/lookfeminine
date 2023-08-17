@@ -1,0 +1,140 @@
+{% extends 'base/template.html' %} {% load static %} {% block content %}
+
+
+<section class="single-prod">
+<div class="all-item">
+  <div class="row mt-20">
+    <div class="col-md-5">
+      <div class="single-product-slider">
+        <div id="carousel-custom" class="carousel slide" data-ride="carousel">
+          <div class="carousel-outer">
+            <!-- me art lab slider -->
+            <div class="carousel-inner">
+              {% for image in product.images.all %}
+              <div class="item{% if forloop.first %} active{% endif %}">
+                <img
+                  src="{{ image.image.url }}"
+                  alt=""
+                  data-image="{{ image.color.name }}"
+                />
+              </div>
+              {% endfor %}
+            </div>
+
+            <a
+              class="left carousel-control"
+              href="#carousel-custom"
+              data-slide="prev"
+            >
+              <i class="tf-ion-ios-arrow-left"></i>
+            </a>
+            <a
+              class="right carousel-control"
+              href="#carousel-custom"
+              data-slide="next"
+            >
+              <i class="tf-ion-ios-arrow-right"></i>
+            </a>
+          </div>
+
+          <!-- thumb -->
+          <ol class="carousel-indicators mCustomScrollbar meartlab">
+            {% for image in product.images.all %}
+            <li data-target="#carousel-custom" data-slide-to="0" class="active">
+              <img
+                src="{{ image.image.url  }}"
+                alt=""
+                data-image="{{ image.color.name}}"
+              />
+            </li>
+
+            {% endfor %}
+          </ol>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7">
+      <div class="single-product-details">
+        <h2>{{product.name}}</h2>
+        <p class="product-price">{{product.price}} MDL</p>
+
+        <p class="product-description mt-20">{{product.description}}</p>
+
+        <div class="color-swatches">
+          <span>Color:</span>
+          <ul>
+            {% for color in product.colors.all %}
+            <li>
+              <a
+                href="#!"
+                style="background-color: {{ color.hex_code }}; border: 0.1px solid black"
+                class="swatch-violet"
+                value="{{ color.name }}"
+              ></a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        <div class="product-size">
+          <span>Size:</span>
+          <select class="form-control">
+            {% for size in product.size.all %}
+            <option>{{size.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="buttons">
+          <a
+            href="#"
+            class="btn btn-main mt-20 btn-btn"
+            data-product-id="{{ product.pk }}"
+            >Add To Cart</a
+          >
+<!--{% url 'checkout' product.pk %} -->
+          <a
+            href=""
+            class="btn btn-main mt-20 btn-btn"
+            >buy now</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="tabCommon mt-20">
+      <ul class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#details" aria-expanded="true">Details</a>
+        </li>
+      </ul>
+      <div class="tab-content patternbg">
+        <div id="details" class="tab-pane fade active in">
+          <h4>Product Description</h4>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum. Sed ut per
+            spici
+            <br />
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis
+            delectus quidem repudiandae veniam distinctio repellendus magni
+            pariatur molestiae asperiores animi, eos quod iusto hic doloremque
+            iste a, nisi iure at unde molestias enim fugit, nulla voluptatibus.
+            Deserunt voluptate tempora aut illum harum, deleniti laborum animi
+            neque, praesentium explicabo, debitis ipsa?
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</section>
+{% endblock %}

@@ -1,138 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    {% load static %}
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="{% static 'css\reset.css' %}"
-    />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="{% static 'css\style.css' %}"
-    />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="{% static 'css\medias.css' %}"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.css"
-      integrity="sha512-Z0kTB03S7BU+JFU0nw9mjSBcRnZm2Bvm0tzOX9/OuOuz01XQfOpa0w/N9u6Jf2f1OAdegdIPWZ9nIZZ+keEvBw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link
-      href=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css "
-      rel="stylesheet"
-    />
-    <script src=" https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js "></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" charset="utf-8"></script>
-    <script src="{% static 'JS/script.js' %}" charset="utf-8"></script>
-    <title>lookfeminine</title>
-  </head>
-  
-  <script>
-    function show() {
-      document.getElementById('sidebar').classList.toggle('active');
-    }
-  </script>
-  
-  <body>
-<div class="home" style='background-image: url("{% static 'images/home.jpg'%}")'>
-    <div class="header">
-      <div class="left">
-        <div class="menu-icon">
-          <div id="sidebar">
-            <div class="toggle-btn"><a href="#"><img src="{% static 'images/menu.png' %}"></a></div>
-            <ul>
-              {% for category in categories %}
-              <li><a href="{% url 'category' category.id %}">{{category.name}}</a></li>
-              {% endfor %}
-            </ul>
-          </div>
-        </div>
-        
-      </div>
-      <div class="center">
-        <div class="logo">
-          <a href="{% url 'home'  %}"
-            ><img
-              class="logo-img"
-              src="{% static 'images/logo.png' %}"
-              style="width: 250px; height: 60px"
-          /></a>
-        </div>
-      </div>
-      <div class="right">
-        <div class="search">
-          <a href="#"><img src="{% static 'images/search.png' %} " /></a>
-        </div>
-        <div class="cart">
-          <a href="#"><img src="{% static 'images/cart.png' %} " /></a>
-        </div>
-      </div>
+{% extends 'base/template.html' %} {% load static %} {% block content %}
+<div class="home-page">
+  <div class="imag-background" style='background-image: url( "{% static 'images/home.jpg' %}" ); background-position: center; '>
+  <div class="container-home">
+    <div class="row-home">
+      <p>PRODUCTS</p>
+      <h1>
+        The beauty of nature <br />
+        is hidden in details.
+      </h1>
+      <a class="btn" href="">Shop Now</a>
     </div>
-
-    <div class="title--button">
-      <div class="title-home">
-        <p>Fii îndrăzneață<br />Fii feminină<br />Fii lookfeminine</p>
-      </div>
-      <div class="btn-explore">
-        <a href="#">Cumpără acum</a>
-      </div>
   </div>
-    </div>
-    <div class="bestseller-page">
-      <div class="bestseller-title">
-        <p>Bestseller</p>
+</div>
+<section class="products bg-gray">
+    <div class="container">
+      <div class="row">
+        <div class="title text-center">
+          <h2>Trendy Products</h2>
+        </div>
       </div>
 
-      <div class="cards">
-        <div class="arrow-left">
-          <a href="#"><i class="fa-solid fa-arrow-left"></i></a>
-        </div>
+      <div class="row">
         {% for product in products %}
-        {% if product.bestseller %}
-        <div class="card">
-            <a href="{% url 'product' product.id %}">
-                {% with product.images.first as first_image %}
+        {% if bestseller == true %}
+        <a href="{% url 'product' product.id %}">
+          <div class="col-md-4">
+            <div class="product-item" >
+              <div class="product-thumb">
+                {% with product.images.first as first_image %} 
                 {% if first_image %}
-                    <div class="image-card"><img src="{{ first_image.image.url }}" /></div>
-                {% endif %}
-                {% endwith %}
-            <div class="title-card">{{ product.name }}</div>
-            <div class="price">{{ product.price }} MDL</div>
-            <div class="rating">
-                <i class="fa-solid fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <i class="fa-regular fa-star"></i>
-                <p>(6)</p>
+                <img
+                  class="img-responsive"
+                  src="{{ first_image.image.url }}"style="width: 360px; height: 450px;"
+                  alt="product-img"
+                />
+                {% endif %} {% endwith %}
+              </div>
+              <div class="product-content">
+                <h4><a href="{% url 'product' product.id %}">{{ product.name }}</a></h4>
+                <p class="price">{{ product.price }} MDL</p>
+              </div>
             </div>
+          </div>
         </a>
+        {% endif %}
+        {% endfor %}
+      </div>
     </div>
-    {% endif %}
-{% endfor %}
-
-
-        <div class="arrow-right">
-          <a href="#"><i class="fa-solid fa-arrow-right"></i></a>
-        </div>
-      </div>
-      </div>
-  
-  </body>
-</html>
+  </section>
+{% endblock %}

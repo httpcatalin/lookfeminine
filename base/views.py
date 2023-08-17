@@ -14,6 +14,19 @@ def product(request, pk):
     product = Product.objects.get(pk=pk)
     category = Category.objects.all()
     context = {'product': product, 'categories': category}
-    return render(request, 'base/rochie.html', context)
+    return render(request, 'base/product-single.html', context)
 
+def billing(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {'products': product}
+    return render(request, 'base/formcheckout.html', context)
 
+def checkout(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {'products': product}
+    return render(request, 'base/checkout.html', context)
+
+def cart(request, pk):
+    product = Product.objects.get(pk=pk)
+    context = {'products': product}
+    return render(request, 'base/cart.html', context)
