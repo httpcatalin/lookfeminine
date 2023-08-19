@@ -1,79 +1,90 @@
-{% extends 'base/template.html' %} {% load static %} {% block content %}
+{% extends 'base/template.html' %} 
+{% load static %} 
+{% block content %}
 <section class="products section">
   <div class="container">
     <div class="row">
       {% if category_id == 'all' %}
-      <h1>jfkler</h1>
       {% for product in products %} 
 	  {% with product.images.first as first_image %} 
 	  {% if first_image %}
       <div class="col-md-4">
         <div class="product-item">
-          <div class="product-thumb">
-            <img
-              class="img-responsive"
-              src="{{ first_image.image.url }}"
-              style="width: 360px; height: 450px"
-              alt="product-img"
-            />
-            {% endif %} 
-			{% endwith %}
-          </div>
-          <div class="product-content">
-            <h4><a href="product-single.html">{{product.name}}</a></h4>
-            <p class="price">{{product.price}}</p>
-          </div>
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+			  {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}">{{product.name}}</a>
+              </h4>
+              <p class="price">{{product.price}}</p>
+            </div>
+          </a>
         </div>
       </div>
       {% endfor %} 
 	  {% elif category_id == 'normal' %}
-      <h1>jfkler</h1>
       {% for product in products %} 
 	  {% if product.size_category|lower == 'normal' %} 
 	  {% with product.images.first as first_image %} 
 	  {% if first_image %}
       <div class="col-md-4">
         <div class="product-item">
-          <div class="product-thumb">
-            <img
-              class="img-responsive"
-              src="{{ first_image.image.url }}"
-              style="width: 360px; height: 450px"
-              alt="product-img"
-            />
-            {% endif %} 
-			{% endwith %}
-          </div>
-          <div class="product-content">
-            <h4><a href="product-single.html">{{product.name}}</a></h4>
-            <p class="price">{{product.price}}</p>
-          </div>
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+			  {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}">{{product.name}}</a>
+              </h4>
+              <p class="price">{{product.price}}</p>
+            </div>
+          </a>
         </div>
       </div>
       {% endif %} 
 	  {% endfor %} 
 	  {% elif category_id == 'large' %}
-      <h1>jfkler</h1>
       {% for product in products %} 
 	  {% if product.size_category|lower == 'plus size' %} 
 	  {% with product.images.first as first_image %} 
 	  {% if first_image %}
       <div class="col-md-4">
         <div class="product-item">
-          <div class="product-thumb">
-            <img
-              class="img-responsive"
-              src="{{ first_image.image.url }}"
-              style="width: 360px; height: 450px"
-              alt="product-img"
-            />
-            {% endif %} 
-			{% endwith %}
-          </div>
-          <div class="product-content">
-            <h4><a href="product-single.html">{{product.name}}</a></h4>
-            <p class="price">{{product.price}}</p>
-          </div>
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+			  {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}">{{product.name}}</a>
+              </h4>
+              <p class="price">{{product.price}}</p>
+            </div>
+          </a>
         </div>
       </div>
       {% endif %} 

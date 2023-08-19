@@ -1,4 +1,6 @@
-{% extends 'base/template.html' %} {% load static %} {% block content %}
+{% extends 'base/template.html' %} 
+{% load static %} 
+{% block content %}
 <div class="home-page">
   <div class="imag-background" style='background-image: url( "{% static 'images/home.jpg' %}" ); background-position: center; '>
   <div class="container-home">
@@ -8,7 +10,7 @@
         The beauty of nature <br />
         is hidden in details.
       </h1>
-      <a class="btn" href="">Shop Now</a>
+      <a class="btn" href="{% url 'shop' 'all' %}">Shop Now</a>
     </div>
   </div>
 </div>
@@ -34,7 +36,8 @@
                   src="{{ first_image.image.url }}"style="width: 360px; height: 450px;"
                   alt="product-img"
                 />
-                {% endif %} {% endwith %}
+                {% endif %} 
+                {% endwith %}
               </div>
               <div class="product-content">
                 <h4><a href="{% url 'product' product.id %}">{{ product.name }}</a></h4>
