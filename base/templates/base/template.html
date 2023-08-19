@@ -81,9 +81,9 @@
       <div class="down-header">
         <ul class="navbar">
           <li><a href="{% url 'home'  %}">Home</a></li>
-          <li><a href="">Products</a></li>
-          <li><a href="">Plus Size</a></li>
-          <li><a href="">Normal Size</a></li>
+          <li><a href="{% url 'shop' 'all'%}">Products</a></li>
+          <li><a href="{% url 'shop' 'normal' %}">Normal Size</a></li>
+          <li><a href="{% url 'shop' 'large' %}">Plus Size</a></li>
         </ul>
       </div>
     </div>

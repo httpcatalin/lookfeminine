@@ -30,3 +30,8 @@ def cart(request, pk):
     product = Product.objects.get(pk=pk)
     context = {'products': product}
     return render(request, 'base/cart.html', context)
+
+def shop(request, category_id):
+    products = Product.objects.all()
+    context = {'products': products, 'category_id': category_id}
+    return render(request, 'base/shop.html',context)

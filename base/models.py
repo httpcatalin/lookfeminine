@@ -35,8 +35,8 @@ class Product(models.Model):
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    size = models.ManyToManyField(Size)
-    # ManyToManyField for multiple colors
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products_with_category')
+    size_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products_with_size_category',default="")
     colors = models.ManyToManyField(Color,null=True)
     material = models.ForeignKey(Material, on_delete=models.CASCADE)
     code = models.CharField(max_length=20, unique=True)
