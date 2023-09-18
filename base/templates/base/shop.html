@@ -1,97 +1,127 @@
 {% extends 'base/template.html' %} 
 {% load static %} 
 {% block content %}
-<section class="products section">
+<section class="page-header" style="background-color: #f5f5f5">
   <div class="container">
     <div class="row">
-      {% if category_id == 'all' %}
-      {% for product in products %} 
-	  {% with product.images.first as first_image %} 
-	  {% if first_image %}
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="{% url 'product' product.id %}">
-            <div class="product-thumb">
-              <img
-                class="img-responsive"
-                src="{{ first_image.image.url }}"
-                style="width: 360px; height: 450px"
-                alt="product-img"
-              />
-              {% endif %} 
-			  {% endwith %}
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="{% url 'product' product.id %}">{{product.name}}</a>
-              </h4>
-              <p class="price">{{product.price}}</p>
-            </div>
-          </a>
+      <div class="col-md-12">
+        <div class="content">
+          <h1 class="page-name" style="font-weight: 100 " class="font-sans Segoe-UI"> <span class="font-sans Segoe-UI text-5xl">Shop</span></h1>
+          <ol class="flex gap-4">
+            <li><a href="{% url 'home' %}" style="color: black" class="font-sans Segoe-UI text-2xl">Home</a></li>
+            {% if category_id == 'all' %}
+            <li class=" font-sans Segoe-UI text-2xl">/</li>
+            <li class=" font-sans Segoe-UI text-2xl">Produse</li>
+            {% elif category_id == 'normal' %}
+            <li class=" font-sans Segoe-UI text-2xl">/</li>
+            <li class="active font-sans Segoe-UI text-2xl">Normal size</li>
+            {% else %}
+            <li class=" font-sans Segoe-UI text-2xl">/</li>
+            <li class="active font-sans Segoe-UI text-2xl">Plus size</li>
+            {% endif %}
+          </ol>
         </div>
       </div>
-      {% endfor %} 
-	  {% elif category_id == 'normal' %}
-      {% for product in products %} 
-	  {% if product.size_category|lower == 'normal' %} 
-	  {% with product.images.first as first_image %} 
-	  {% if first_image %}
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="{% url 'product' product.id %}">
-            <div class="product-thumb">
-              <img
-                class="img-responsive"
-                src="{{ first_image.image.url }}"
-                style="width: 360px; height: 450px"
-                alt="product-img"
-              />
-              {% endif %} 
-			  {% endwith %}
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="{% url 'product' product.id %}">{{product.name}}</a>
-              </h4>
-              <p class="price">{{product.price}}</p>
-            </div>
-          </a>
-        </div>
-      </div>
-      {% endif %} 
-	  {% endfor %} 
-	  {% elif category_id == 'large' %}
-      {% for product in products %} 
-	  {% if product.size_category|lower == 'plus size' %} 
-	  {% with product.images.first as first_image %} 
-	  {% if first_image %}
-      <div class="col-md-4">
-        <div class="product-item">
-          <a href="{% url 'product' product.id %}">
-            <div class="product-thumb">
-              <img
-                class="img-responsive"
-                src="{{ first_image.image.url }}"
-                style="width: 360px; height: 450px"
-                alt="product-img"
-              />
-              {% endif %} 
-			  {% endwith %}
-            </div>
-            <div class="product-content">
-              <h4>
-                <a href="{% url 'product' product.id %}">{{product.name}}</a>
-              </h4>
-              <p class="price">{{product.price}}</p>
-            </div>
-          </a>
-        </div>
-      </div>
-      {% endif %} 
-	  {% endfor %} 
-	  {% endif %}
     </div>
   </div>
 </section>
 
+<section class="products section">
+  <div class="container">
+    <div class="row">
+      {% if category_id == 'all' %} 
+      {% for product in products %} 
+      {% with product.image.first as first_image %} 
+      {% if first_image %}
+      <div class="col-md-4">
+        <div class="product-item">
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+              {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}" style="color: black"
+                  >{{product.name}}</a
+                >
+              </h4>
+              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endfor %}  
+      {% elif category_id == 'normal' %} 
+      {% for product in products %} 
+      {% if product.size_category|lower == 'normal' %} 
+      {% with product.image.first as first_image %} 
+      {% if first_image %}
+      <div class="col-md-4">
+        <div class="product-item">
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+              {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}" style="color: black"
+                  >{{product.name}}</a
+                >
+              </h4>
+              <p class="price">{{product.price}}</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endif %} 
+      {% endfor %}
+      {% elif category_id == 'large' %} 
+      {% for product in products %} 
+      {% if product.size_category|lower == 'plus size' %} 
+      {% with product.image.first as first_image %} 
+      {% if first_image %}
+      <div class="col-md-4">
+        <div class="product-item">
+          <a href="{% url 'product' product.id %}">
+            <div class="product-thumb">
+              <img
+                class="img-responsive"
+                src="{{ first_image.image.url }}"
+                style="width: 360px; height: 450px"
+                alt="product-img"
+              />
+              {% endif %} 
+              {% endwith %}
+            </div>
+            <div class="product-content">
+              <h4>
+                <a href="{% url 'product' product.id %}" style="color: black"
+                  >{{product.name}}</a
+                >
+              </h4>
+              <p class="price">{{product.price}} MDL</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      {% endif %} 
+      {% endfor %} 
+      {% endif %}
+    </div>
+  </div>
+</section>
 {% endblock content %}

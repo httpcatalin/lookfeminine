@@ -3,14 +3,14 @@
 {% block content %}
 <div class="home-page">
   <div class="imag-background" style='background-image: url( "{% static 'images/home.jpg' %}" ); background-position: center; '>
-  <div class="container-home">
-    <div class="row-home">
+  <div class="container-home flex-column align-items-center justify-content-center ml-20">
+    <div class="row-home ">
       <p>PRODUCTS</p>
-      <h1>
+      <h1 class="font-sans Segoe-UI   text-center ">
         The beauty of nature <br />
         is hidden in details.
       </h1>
-      <a class="btn" href="{% url 'shop' 'all' %}">Shop Now</a>
+      <a class="btn font-sans Segoe-UI" href="{% url 'shop' 'all' %}"> <span class="font-sans Segoe-UI font-semibold ">Shop Now</span></a>
     </div>
   </div>
 </div>
@@ -21,7 +21,6 @@
           <h2>Trendy Products</h2>
         </div>
       </div>
-
       <div class="row">
         {% for product in products %}
         {% if bestseller == true %}
@@ -29,7 +28,7 @@
           <div class="col-md-4">
             <div class="product-item" >
               <div class="product-thumb">
-                {% with product.images.first as first_image %} 
+                {% with product.image.first as first_image %} 
                 {% if first_image %}
                 <img
                   class="img-responsive"
@@ -39,15 +38,16 @@
                 {% endif %} 
                 {% endwith %}
               </div>
-              <div class="product-content">
-                <h4><a href="{% url 'product' product.id %}">{{ product.name }}</a></h4>
-                <p class="price">{{ product.price }} MDL</p>
+              <div class="product-content mt-2 flex gap-3  ">
+                <h4 ><a href="{% url 'product' product.id %}" style="color: black; font-family: Popins;" class="product-name font-sans Segoe-UI font-medium  ">{{ product.name }}</a></h4>
+                <p class="font-sans Segoe-UI price">{{ product.price}} MDL</p>
               </div>
             </div>
           </div>
         </a>
         {% endif %}
         {% endfor %}
+        
       </div>
     </div>
   </section>

@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -57,9 +58,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 
-
-STRIPE_PUBLISHABLE_KEY = 'pk_test_51NXKACDntZNInQFsVArVnnAmQjUAlKBaPeNwPnQUQdTzMqZ1o42ayepTxkIFdiNo49881xWMw70XdwmVaYd2cvqP00HqQpirvm'
-STRIPE_SECRET_KEY = 'sk_test_51NXKACDntZNInQFsipSXi13yDMjXSkkMhIKMKAiu03mwOXsoR0p5HUsAlU9yih3ggtANj2lCMJXtGcg92F9ITvJj009s2a2vC4'
 
 
 
@@ -129,7 +127,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+
+ # Replace with the actual value you need
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
