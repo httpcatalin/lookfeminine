@@ -16,12 +16,11 @@
       href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}"
     />
 
-    
     <script defer src="{% static 'JS/script.js' %}"></script>
     <script src="{% static 'plugins/jquery/dist/jquery.min.js' %}"></script>
     <script src="{% static 'plugins/bootstrap/js/bootstrap.min.js' %}"></script>
-   
-     <script src="{% static 'plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js' %}"></script>
+
+    <script src="{% static 'plugins/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.min.js' %}"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       rel="stylesheet"
@@ -36,19 +35,17 @@
       href="https://fonts.googleapis.com/css2?family=Poppins&display=swap"
       rel="stylesheet"
     />
-   
+
     <link
       type="text/css"
       rel="stylesheet"
       href="{% static 'css\style.css' %}"
     />
-    
   </head>
-  
-  <body>
 
+  <body>
     <div class="header">
-      <div class="up-header ">
+      <div class="up-header">
         <div class="center-header flex justify-center ml-12">
           <div class="logo">
             <a href="{% url 'home'  %}"
@@ -61,64 +58,89 @@
         </div>
         <div class="right-header">
           <div class="cart">
-              <a href="{% url 'cart' %}">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                  <span class="cart-count">
-                      {% if request.session.cart %}
-                          {{ request.session.cart|length }}
-                      {% else %}
-                          0
-                      {% endif %}
-                  </span>
-              </a>
+            <a href="{% url 'cart' %}">
+              <div class="relative ">
+                <i class="fa-solid fa-cart-shopping rounded-xl bg-gray-300 "></i>
+                <span
+                  class="cart-count font-sans Segoe-UI absolute text-2xl bottom-0 right-0 text-white "
+                >
+                  {% if request.session.cart %} 
+                  {{ request.session.cart|length}} 
+                  {% else %} 0 
+                  {% endif %}
+                </span>
+              </div>
+            </a>
           </div>
-      </div>
-      
-        
+        </div>
       </div>
       <div class="down-header">
         <ul class="navbar">
-          <li><a href="{% url 'home'  %}" class="font-sans Segoe-UI">Home</a></li>
-          <li><a href="{% url 'shop' 'all'%}" class="font-sans Segoe-UI">Products</a></li>
-          <li><a href="{% url 'shop' 'normal' %}" class="font-sans Segoe-UI">Normal Size</a></li>
-          <li><a href="{% url 'shop' 'large' %}" class="font-sans Segoe-UI">Plus Size</a></li>
+          <li>
+            <a href="{% url 'home'  %}" class="font-sans Segoe-UI">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'shop' 'all'%}" class="font-sans Segoe-UI"
+              >Products</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'shop' 'normal' %}" class="font-sans Segoe-UI"
+              >Normal Size</a
+            >
+          </li>
+          <li>
+            <a href="{% url 'shop' 'large' %}" class="font-sans Segoe-UI"
+              >Plus Size</a
+            >
+          </li>
         </ul>
       </div>
     </div>
-    {% block content %} 
-    {% endblock %}
-    <footer class="footer section text-center static bottom-0 w-full" >
+    {% block content %} {% endblock %}
+    <footer class="footer section text-center static bottom-0 w-full">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
             <ul class="social-media">
               <li>
                 <a href="">
-                  <i class="fa-brands fa-facebook-f"style="font-size: 20px;" ></i>
+                  <i
+                    class="fa-brands fa-facebook-f"
+                    style="font-size: 20px"
+                  ></i>
                 </a>
               </li>
               <li>
                 <a href="">
-                  <i class="fa-brands fa-instagram" style="font-size: 23px;"></i>
+                  <i class="fa-brands fa-instagram" style="font-size: 23px"></i>
                 </a>
               </li>
             </ul>
             <ul class="footer-menu text-uppercase">
               <li>
                 <a href="{% url 'home' %}" class="font-sans Segoe-UI">home</a>
-              </li> 
-              <li>
-                <a href="{% url 'shop' 'all' %}" class="font-sans Segoe-UI">products</a>
               </li>
               <li>
-                <a href="{% url 'shop' 'normal' %}" class="font-sans Segoe-UI">normal size</a>
+                <a href="{% url 'shop' 'all' %}" class="font-sans Segoe-UI"
+                  >products</a
+                >
               </li>
               <li>
-                <a href="{% url 'shop' 'plus' %}" class="font-sans Segoe-UI">plus size</a>
+                <a href="{% url 'shop' 'normal' %}" class="font-sans Segoe-UI"
+                  >normal size</a
+                >
+              </li>
+              <li>
+                <a href="{% url 'shop' 'plus' %}" class="font-sans Segoe-UI"
+                  >plus size</a
+                >
               </li>
             </ul>
-            <p class="copyright-text" >
-             <span class="font-sans Segoe-UI opacity-50"> Copyright &copy;2023 | lookfeminine</span>
+            <p class="copyright-text">
+              <span class="font-sans Segoe-UI opacity-50">
+                Copyright &copy;2023 | lookfeminine</span
+              >
             </p>
           </div>
         </div>
@@ -126,4 +148,3 @@
     </footer>
   </body>
 </html>
-

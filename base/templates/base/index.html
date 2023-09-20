@@ -39,7 +39,7 @@
                 {% endwith %}
               </div>
               <div class="product-content mt-2 flex gap-3  ">
-                <h4 ><a href="{% url 'product' product.id %}" style="color: black; font-family: Popins;" class="product-name font-sans Segoe-UI font-medium  ">{{ product.name }}</a></h4>
+                <h4 ><a href="{% url 'product' product.id %}" style="color: black; font-family: Popins;" class="product-name font-sans Segoe-UI   "><span class="font-sans Segoe-UI text-3xl" >{{ product.name }}</span></a></h4>
                 <p class="font-sans Segoe-UI price">{{ product.price}} MDL</p>
               </div>
             </div>

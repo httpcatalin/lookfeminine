@@ -133,19 +133,22 @@
         <div class="single-product-details">
           <h2 class="font-sans Segoe-UI font-bold">{{product.name}}</h2>
           <p class="font-sans Segoe-UI">{{product.price}} MDL</p>
-          <p class=" mt-10 font-sans Segoe-UI text-gray opacity-60">{{product.description}}</p>
+          <p class="mt-10 font-sans Segoe-UI text-gray opacity-60">
+            {{product.description}}
+          </p>
           <form
-            action="{% url 'add_to_cart' product.id %}"
+            action="{% url 'add_to_cart' product.id 0 %}"
             method="post"
             class="add-to-cart-form"
-            id="add-to-cart-form"
           >
             {% csrf_token %}
             <div class="color-swatches">
               <div class="color-text">
-                <span class="font-sans Segoe-UI" >Color:</span>
+                <span class="font-sans Segoe-UI">Color:</span>
               </div>
+              
               <div class="colors">
+           
                 {% for color in product.colors.all %}
                 <a
                   href="#!"
@@ -175,14 +178,16 @@
               </div>
             </div>
             <div class="product-size">
-              <span class="font-sans Segoe-UI" >Size:</span>
+              <span class="font-sans Segoe-UI">Size:</span>
               <select
                 class="form-control font-sans Segoe-UI"
                 id="selected-size"
                 name="selected_size"
               >
                 {% for size in product.size.all %}
-                <option class="font-sans Segoe-UI" value="{{ size.name }}">{{ size.name }}</option>
+                <option class="font-sans Segoe-UI" value="{{ size.name }}">
+                  {{ size.name }}
+                </option>
                 {% endfor %}
               </select>
             </div>
@@ -191,21 +196,24 @@
               {% csrf_token %}
               <input type="hidden" name="product" value="{{ product.id }}" />
               <input type="hidden" name="selected_color" id="selected-color" />
-                <input
+              <input
+                type="submit"
+                class="bg-black text-white rounded-md font-sans Segoe-UI uppercase font-semibold"
+                value="Adaugă în coș"
+              />
+            </form>
+            
+          {% csrf_token %}
+              <a class="bg-black text-white rounded-md font-sans Segoe-UI" href="{% url 'checkout_buy' product_id %}"
+                ><input
+                  
+                  action="submit"
                   type="submit"
-                  class="bg-black text-white rounded-md font-sans Segoe-UI uppercase font-semibold"
-                  value="Adaugă în coș"
-                />
-              
-              <a
-                href=" "
-                class="bg-black text-white rounded-md font-sans Segoe-UI"
-                action="submit"
-                value="{{product.id}}"
-                >Cumpără</a
-              >
+                  value="Cumpără" /> </a>
+                  
+                  
             </div>
-          </form>
+          
         </div>
       </div>
     </div>

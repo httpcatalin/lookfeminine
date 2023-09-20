@@ -11,13 +11,13 @@
             <li><a href="{% url 'home' %}" style="color: black" class="font-sans Segoe-UI text-2xl">Home</a></li>
             {% if category_id == 'all' %}
             <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class=" font-sans Segoe-UI text-2xl">Produse</li>
+            <li class=" font-sans Segoe-UI text-2xl opacity-60">Produse</li>
             {% elif category_id == 'normal' %}
             <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class="active font-sans Segoe-UI text-2xl">Normal size</li>
+            <li class="active font-sans Segoe-UI text-2xl opacity-60">Normal size</li>
             {% else %}
             <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class="active font-sans Segoe-UI text-2xl">Plus size</li>
+            <li class="active font-sans Segoe-UI text-2xl opacity-60">Plus size</li>
             {% endif %}
           </ol>
         </div>
@@ -46,10 +46,10 @@
               {% endif %} 
               {% endwith %}
             </div>
-            <div class="product-content">
+            <div class="product-content mt-4 flex gap-3">
               <h4>
                 <a href="{% url 'product' product.id %}" style="color: black"
-                  >{{product.name}}</a
+                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
                 >
               </h4>
               <p  class="font-sans Segoe-UI price">{{product.price}}</p>
@@ -76,13 +76,13 @@
               {% endif %} 
               {% endwith %}
             </div>
-            <div class="product-content">
+            <div class="product-content mt-4 flex gap-3">
               <h4>
                 <a href="{% url 'product' product.id %}" style="color: black"
-                  >{{product.name}}</a
+                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
                 >
               </h4>
-              <p class="price">{{product.price}}</p>
+              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
             </div>
           </a>
         </div>
@@ -107,13 +107,13 @@
               {% endif %} 
               {% endwith %}
             </div>
-            <div class="product-content">
+            <div class="product-content mt-4 flex gap-3">
               <h4>
                 <a href="{% url 'product' product.id %}" style="color: black"
-                  >{{product.name}}</a
+                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
                 >
               </h4>
-              <p class="price">{{product.price}} MDL</p>
+              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
             </div>
           </a>
         </div>

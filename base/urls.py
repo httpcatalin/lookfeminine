@@ -22,7 +22,7 @@ def homepage(request):
 def product(request, pk):
     product = Product.objects.get(pk=pk)
     category = Category.objects.all()
-    context = {'product': product, 'categories': category}
+    context = {'product': product, 'categories': category,'product_id': pk,}
     return render(request, 'base/product-single.html', context)
 
 def shop(request, category_id):
@@ -39,7 +39,7 @@ def cart_detail(request):
     total_price = sum(item['price'] * item['quantity'] for item in cart.values())
     return render(request, 'base/cart.html', {'cart': cart, 'total_price': total_price})
 
-def add_to_cart(request, product_id):
+def add_to_cart(request, product_id, i):
     product = Product.objects.get(id=product_id)
     color_image_mapping = {}  
 
@@ -91,6 +91,8 @@ def remove_from_cart2(request, product_id):
 
 def checkout_view(request):
     cart = request.session.get('cart', {})
+    if not cart:
+        return redirect('shop', 'all') 
     total_price = sum(item['price'] for item in cart.values())
     if request.method == 'POST':
         first_name = request.POST['first_name']
@@ -99,13 +101,16 @@ def checkout_view(request):
         city = request.POST['city']
         total_price = sum(item['price'] for item in cart.values())
         customer = Customer.objects.create(
-            first_name=first_name,
-            address=address,
-            phone_number=phone_number,
-            city=city
+            first_name = first_name,
+            address = address,
+            phone_number = phone_number,
+            city = city
         )
         order = Order.objects.create(
-            customer=customer,
+            customer =customer,
+            address = address,
+            phone_number = phone_number,
+            city = city,
             products=str(cart),  
             total_price=total_price
         )
@@ -115,6 +120,9 @@ def checkout_view(request):
 
     
     return render(request, 'base/checkout.html', {'cart': cart, 'total_price': total_price})
+
+
+
 
 
 
@@ -128,6 +136,7 @@ urlpatterns = [
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<str:product_id>/', remove_from_cart, name='remove_from_cart'),
     path('remove-from-cart2/<str:product_id>/', remove_from_cart2, name='remove_from_cart2'),
+    path('checkout_buy/<int:product_id>/',checkout_buy, name='checkout_buy')
     
 ]
 
