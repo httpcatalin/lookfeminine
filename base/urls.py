@@ -39,9 +39,9 @@ def cart_detail(request):
     total_price = sum(item['price'] * item['quantity'] for item in cart.values())
     return render(request, 'base/cart.html', {'cart': cart, 'total_price': total_price})
 
-def add_to_cart(request, product_id, i):
+def add_to_cart(request, product_id):
     product = Product.objects.get(id=product_id)
-    color_image_mapping = {}  
+    color_image_mapping = {}
 
     for i, color_info in enumerate(product.colors.values()):
         color_name = color_info['name']
@@ -68,7 +68,12 @@ def add_to_cart(request, product_id, i):
     }
     request.session['cart'] = cart
 
-    return redirect('product', product.id)
+    action = request.POST.get('action')
+    if action == 'Adaugă în coș':
+        return redirect('product', product_id)
+    elif action == 'Cumpără':
+        return redirect('checkout')
+
 def remove_from_cart(request, product_id):
     cart = request.session.get('cart', {})
 
@@ -136,7 +141,7 @@ urlpatterns = [
     path('add-to-cart/<int:product_id>/', add_to_cart, name='add_to_cart'),
     path('remove-from-cart/<str:product_id>/', remove_from_cart, name='remove_from_cart'),
     path('remove-from-cart2/<str:product_id>/', remove_from_cart2, name='remove_from_cart2'),
-    path('checkout_buy/<int:product_id>/',checkout_buy, name='checkout_buy')
+    path('checkout_buy/<int:product_id>/',checkout_view, name='checkout_buy')
     
 ]
 

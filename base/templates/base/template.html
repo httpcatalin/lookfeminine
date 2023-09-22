@@ -41,9 +41,11 @@
       rel="stylesheet"
       href="{% static 'css\style.css' %}"
     />
+
   </head>
 
-  <body>
+  <body class="">
+    <div class="page-container relative pb-3">
     <div class="header">
       <div class="up-header">
         <div class="center-header flex justify-center ml-12">
@@ -59,10 +61,10 @@
         <div class="right-header">
           <div class="cart">
             <a href="{% url 'cart' %}">
-              <div class="relative ">
-                <i class="fa-solid fa-cart-shopping rounded-xl bg-gray-300 "></i>
+              <div class="flex gap-1 items-center">
+                <i class="fa-solid fa-cart-shopping  "></i>
                 <span
-                  class="cart-count font-sans Segoe-UI absolute text-2xl bottom-0 right-0 text-white "
+                  class="cart-count font-sans Segoe-UI  text-xl  text-white rounded-full bg-gray-300 p-1.5 px-3"
                 >
                   {% if request.session.cart %} 
                   {{ request.session.cart|length}} 
@@ -97,9 +99,11 @@
         </ul>
       </div>
     </div>
-    {% block content %} {% endblock %}
-    <footer class="footer section text-center static bottom-0 w-full">
-      <div class="container">
+    {% block content %} 
+    {% endblock %}
+    <div class="bg bg-blue">
+    <footer class="footer section text-center w-full  bottom-0">
+      <div class="container ">
         <div class="row">
           <div class="col-md-12">
             <ul class="social-media">
@@ -137,7 +141,7 @@
                 >
               </li>
             </ul>
-            <p class="copyright-text">
+            <p class="copyright-text mb-5">
               <span class="font-sans Segoe-UI opacity-50">
                 Copyright &copy;2023 | lookfeminine</span
               >
@@ -146,5 +150,7 @@
         </div>
       </div>
     </footer>
+  </div>
+  </div>
   </body>
 </html>

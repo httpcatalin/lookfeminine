@@ -1,54 +1,70 @@
 {% extends 'base/template.html' %} 
 {% load static %} 
 {% block content %}
+
 <div class="home-page">
   <div class="imag-background" style='background-image: url( "{% static 'images/home.jpg' %}" ); background-position: center; '>
-  <div class="container-home flex-column align-items-center justify-content-center ml-20">
-    <div class="row-home ">
+  <div
+    class="container-home flex-column align-items-center justify-content-center ml-20"
+  >
+    <div class="row-home">
       <p>PRODUCTS</p>
-      <h1 class="font-sans Segoe-UI   text-center ">
+      <h1 class="font-sans Segoe-UI text-center">
         The beauty of nature <br />
         is hidden in details.
       </h1>
-      <a class="btn font-sans Segoe-UI" href="{% url 'shop' 'all' %}"> <span class="font-sans Segoe-UI font-semibold ">Shop Now</span></a>
+      <a class="btn font-sans Segoe-UI" href="{% url 'shop' 'all' %}">
+        <span class="font-sans Segoe-UI font-semibold">Shop Now</span></a
+      >
     </div>
   </div>
 </div>
-<section class="products bg-gray">
-    <div class="container">
+<div class="bg-gr bg-gray-50">
+  <section class="products">
+    <div class="container py-40 mt-0">
       <div class="row">
         <div class="title text-center">
-          <h2>Trendy Products</h2>
+          <h2 class="font-sans Segoe-UI text-4xl">Trendy Products</h2>
         </div>
       </div>
-      <div class="row">
-        {% for product in products %}
+      <div class="row mt-20 flex gap-5">
+        {% for product in products %} 
         {% if bestseller == true %}
         <a href="{% url 'product' product.id %}">
-          <div class="col-md-4">
-            <div class="product-item" >
+          <div class="col-md">
+            <div class="product-item">
               <div class="product-thumb">
                 {% with product.image.first as first_image %} 
                 {% if first_image %}
                 <img
                   class="img-responsive"
-                  src="{{ first_image.image.url }}"style="width: 360px; height: 450px;"
+                  src="{{ first_image.image.url }}"
+                  style= "width: 360px; height: 450px"
                   alt="product-img"
                 />
                 {% endif %} 
                 {% endwith %}
               </div>
-              <div class="product-content mt-2 flex gap-3  ">
-                <h4 ><a href="{% url 'product' product.id %}" style="color: black; font-family: Popins;" class="product-name font-sans Segoe-UI   "><span class="font-sans Segoe-UI text-3xl" >{{ product.name }}</span></a></h4>
+              <div class="product-content mt-2 flex gap-3">
+                <h4>
+                  <a
+                    href="{% url 'product' product.id %}"
+                    style="color: black; font-family: Popins"
+                    class="product-name font-sans Segoe-UI"
+                    ><span class="font-sans Segoe-UI text-3xl"
+                      >{{ product.name }}</span
+                    ></a
+                  >
+                </h4>
                 <p class="font-sans Segoe-UI price">{{ product.price}} MDL</p>
               </div>
             </div>
           </div>
         </a>
-        {% endif %}
+        {% endif %} 
         {% endfor %}
-        
       </div>
     </div>
   </section>
+</div>
 {% endblock %}

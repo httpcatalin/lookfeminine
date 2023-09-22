@@ -1,27 +1,36 @@
 {% extends 'base/template.html' %} 
 {% load static %} 
 {% block content %}
-<section class="page-header" style="background-color: #f5f5f5">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="content">
-          <h1 class="page-name" style="font-weight: 100 " class="font-sans Segoe-UI"> <span class="font-sans Segoe-UI text-5xl">Shop</span></h1>
-          <ol class="flex gap-4">
-            <li><a href="{% url 'home' %}" style="color: black" class="font-sans Segoe-UI text-2xl">Home</a></li>
-            {% if category_id == 'all' %}
-            <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class=" font-sans Segoe-UI text-2xl opacity-60">Produse</li>
-            {% elif category_id == 'normal' %}
-            <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class="active font-sans Segoe-UI text-2xl opacity-60">Normal size</li>
-            {% else %}
-            <li class=" font-sans Segoe-UI text-2xl">/</li>
-            <li class="active font-sans Segoe-UI text-2xl opacity-60">Plus size</li>
-            {% endif %}
-          </ol>
-        </div>
-      </div>
+<section class="page-head py-24" style="background-color: #f5f5f5">
+  <div class="content flex-column mx-96">
+    <div class="page-name mb-3">
+      <h1 class="page-name" style="font-weight: 100" class="font-sans Segoe-UI">
+        <span class="font-sans Segoe-UI text-5xl">Shop</span>
+      </h1>
+    </div>
+    <div class="list-cat">
+      <ol class="flex gap-4">
+        <li>
+          <a
+            href="{% url 'home' %}"
+            style="color: black"
+            class="font-sans Segoe-UI text-2xl"
+            >Home</a
+          >
+        </li>
+        {% if category_id == 'all' %}
+        <li class="font-sans Segoe-UI text-2xl">/</li>
+        <li class="font-sans Segoe-UI text-2xl opacity-60">Produse</li>
+        {% elif category_id == 'normal' %}
+        <li class="font-sans Segoe-UI text-2xl">/</li>
+        <li class="active font-sans Segoe-UI text-2xl opacity-60">
+          Normal size
+        </li>
+        {% else %}
+        <li class="font-sans Segoe-UI text-2xl">/</li>
+        <li class="active font-sans Segoe-UI text-2xl opacity-60">Plus size</li>
+        {% endif %}
+      </ol>
     </div>
   </div>
 </section>
@@ -43,22 +52,23 @@
                 style="width: 360px; height: 450px"
                 alt="product-img"
               />
-              {% endif %} 
-              {% endwith %}
+              {% endif %} {% endwith %}
             </div>
             <div class="product-content mt-4 flex gap-3">
               <h4>
-                <a href="{% url 'product' product.id %}" style="color: black"
-                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
+                <a
+                  href="{% url 'product' product.id %}"
+                  style="color: black"
+                  class="font-sans Segoe-UI font-medium text-3xl"
+                  >{{product.name}}</a
                 >
               </h4>
-              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
+              <p class="font-sans Segoe-UI price">{{product.price}}</p>
             </div>
           </a>
         </div>
       </div>
-      {% endfor %}  
-      {% elif category_id == 'normal' %} 
+      {% endfor %} {% elif category_id == 'normal' %} 
       {% for product in products %} 
       {% if product.size_category|lower == 'normal' %} 
       {% with product.image.first as first_image %} 
@@ -73,22 +83,24 @@
                 style="width: 360px; height: 450px"
                 alt="product-img"
               />
-              {% endif %} 
-              {% endwith %}
+              {% endif %} {% endwith %}
             </div>
             <div class="product-content mt-4 flex gap-3">
               <h4>
-                <a href="{% url 'product' product.id %}" style="color: black"
-                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
+                <a
+                  href="{% url 'product' product.id %}"
+                  style="color: black"
+                  class="font-sans Segoe-UI font-medium text-3xl"
+                  >{{product.name}}</a
                 >
               </h4>
-              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
+              <p class="font-sans Segoe-UI price">{{product.price}}</p>
             </div>
           </a>
         </div>
       </div>
       {% endif %} 
-      {% endfor %}
+      {% endfor %} 
       {% elif category_id == 'large' %} 
       {% for product in products %} 
       {% if product.size_category|lower == 'plus size' %} 
@@ -104,16 +116,18 @@
                 style="width: 360px; height: 450px"
                 alt="product-img"
               />
-              {% endif %} 
-              {% endwith %}
+              {% endif %} {% endwith %}
             </div>
             <div class="product-content mt-4 flex gap-3">
               <h4>
-                <a href="{% url 'product' product.id %}" style="color: black"
-                 class="font-sans Segoe-UI font-medium  text-3xl" >{{product.name}}</a
+                <a
+                  href="{% url 'product' product.id %}"
+                  style="color: black"
+                  class="font-sans Segoe-UI font-medium text-3xl"
+                  >{{product.name}}</a
                 >
               </h4>
-              <p  class="font-sans Segoe-UI price">{{product.price}}</p>
+              <p class="font-sans Segoe-UI price">{{product.price}}</p>
             </div>
           </a>
         </div>

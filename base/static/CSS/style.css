@@ -30,9 +30,6 @@
     color: black;
 }
 
-.cart a :hover {
-    color: black;
-}
 
 .navbar {
     display: flex;
