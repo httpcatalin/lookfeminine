@@ -52,8 +52,8 @@ MIDDLEWARE = [
 ]
 ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/images/'
+STATIC_URL = 'static/'
+MEDIA_URL = 'images/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
@@ -141,3 +141,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+# settings.py
+
+MEDIA_ROOT = '/path/to/your/media/root'
+MEDIA_URL = '/media/'
