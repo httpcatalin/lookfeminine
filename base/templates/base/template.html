@@ -1847,8 +1847,11 @@
         <span
           class="text-s flex align-center justify-center"
           style="font-family: Inter"
-          >{% if request.session.cart %} {{ request.session.cart|length}} {%
-          else %} 0 {% endif %}</span
+          >
+          {% if request.session.cart %} 
+          {{ request.session.cart|length}} {%else %} 
+          0 
+          {% endif %}</span
         >
       </ul>
     </a>
