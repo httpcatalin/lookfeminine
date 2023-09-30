@@ -1,14 +1,93 @@
 {% extends 'base/template.html' %} {% load static %} {% block content %}
 <script>
-  function selectColor(element) {
-    var swatches = document.getElementsByClassName("swatch-violet");
-    for (var i = 0; i < swatches.length; i++) {
-      swatches[i].style.boxShadow = "none";
+
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const sizeCheckboxes = document.querySelectorAll(".size-checkbox");
+
+    sizeCheckboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("click", function () {
+        sizeCheckboxes.forEach(function (otherCheckbox) {
+          otherCheckbox.removeAttribute("required");
+        });
+        this.setAttribute("required", "required");
+      });
+    });
+  });
+  document.addEventListener("DOMContentLoaded", function () {
+    var productSlider = new Splide("#product-slider", {
+      type: "fade",
+      perPage: 1,
+      autoplay: true,
+      pauseOnHover: false,
+    }).mount();
+
+    var thumbnailSlider = new Splide("#thumbnail-slider", {
+      perPage: 6,
+      rewind: true,
+      gap: 10,
+      pagination: false,
+      arrows: false,
+    }).mount();
+
+    var activeImageIndex = 0;
+
+    function setThumbnailOpacities() {
+      thumbnailSlider.Components.Elements.slides.forEach(function (
+        slide,
+        index
+      ) {
+        var thumbnailImage = slide.querySelector(".thumbnail");
+        var opacity = index === activeImageIndex ? 1 : 0.6;
+        thumbnailImage.style.opacity = opacity;
+      });
     }
-    element.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.5)";
-    var selectedColorInput = document.getElementById("selected-color");
-    selectedColorInput.value = element.getAttribute("data-color");
-  }
+
+    productSlider.on("move", function (newIndex) {
+      activeImageIndex = newIndex;
+      setThumbnailOpacities();
+    });
+
+    thumbnailSlider.on("click", function (slide) {
+      var thumbnailImage = slide.slide.querySelector(".thumbnail");
+      var imageData = thumbnailImage.getAttribute("data-image");
+      productSlider.go(slide.index);
+    });
+
+    // Adăugați gestionarea evenimentului autoplay:ended
+    productSlider.on("autoplay:ended", function () {
+      // Returnați sliderul la prima imagine
+      productSlider.go(0);
+    });
+
+    setThumbnailOpacities();
+  });
+
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".color-checkbox");
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("click", (event) => {
+        checkboxes.forEach((otherCheckbox) => {
+          if (otherCheckbox !== checkbox) {
+            otherCheckbox.checked = false;
+          }
+        });
+      });
+    });
+  });
+  
+  document.addEventListener("DOMContentLoaded", function () {
+    const checkboxes = document.querySelectorAll(".size-checkbox");
+    checkboxes.forEach((checkbox) => {
+      checkbox.addEventListener("click", () => {
+        checkboxes.forEach((otherCheckbox) => {
+          if (otherCheckbox !== checkbox) {
+            otherCheckbox.checked = false;
+          }
+        });
+      });
+    });
+  });
   document.addEventListener("DOMContentLoaded", function () {
     const checkboxes = document.querySelectorAll(".color-checkbox");
     checkboxes.forEach((checkbox) => {
@@ -32,7 +111,20 @@
       });
     });
   });
+  function selectColor(element) {
+    var swatches = document.getElementsByClassName("swatch-violet");
+    for (var i = 0; i < swatches.length; i++) {
+      swatches[i].style.boxShadow = "none";
+    }
+    element.style.boxShadow = "0 0 5px rgba(0, 0, 0, 0.5)";
+    var selectedColorInput = document.getElementById("selected-color");
+    selectedColorInput.value = element.getAttribute("data-color");
+  }
 </script>
+
+  
+
+
 
 <section class="page-head py-24" style="background-color: #f5f5f5">
   <div class="content flex-column mx-96">
@@ -67,171 +159,220 @@
     </div>
   </div>
 </section>
-<section class="single-prod">
-  <div class="all-item">
+<section class="single-prod my-28 ml-32 flex-col align-center justify-center">
+  <div class="all-item p-0 mx-96 flex align-center justify-center">
     <div class="row mt-20">
       <div class="col-md-5">
         <div class="single-product-slider">
-          <div id="carousel-custom" class="carousel slide" data-ride="carousel">
-            <div class="carousel-outer">
-              <div class="carousel-inner">
+          <div class="splide" id="product-slider">
+            <div class="splide__track">
+              <ul class="splide__list">
                 {% for image in product.image.all %}
-                <div class="item{% if forloop.first %} active{% endif %}">
+                <li class="splide__slide">
                   <img
                     src="{{ image.image.url }}"
                     alt=""
+                    class="rounded-2xl"
+                    style="width: 1200px"
                     data-image="{{ image.color.name }}"
                   />
-                </div>
+                </li>
                 {% endfor %}
-              </div>
-              <a
-                class="left carousel-control"
-                href="#carousel-custom"
-                data-slide="prev"
-              >
-                <i class="fa-solid fa-arrow-left" style="font-size: 20px"></i>
-              </a>
-              <a
-                class="right carousel-control"
-                href="#carousel-custom"
-                data-slide="next"
-              >
-                <i class="fa-solid fa-arrow-right" style="font-size: 20px"></i>
-              </a>
+              </ul>
             </div>
+          </div>
+        </div>
 
-            <ol class="carousel-indicators mCustomScrollbar meartlab">
-              {% for image in product.image.all %}
-              <li
-                data-target="#carousel-custom"
-                data-slide-to="{{ forloop.counter0 }}"
-                {%
-                if
-                forloop.first
-                %}class="active"
-                {%
-                endif
-                %}
-              >
-                <img
-                  src="{{ image.image.url }}"
-                  alt=""
-                  data-image="{{ image.color.name }}"
-                />
-              </li>
-              {% endfor %}
-            </ol>
+        <div class="thumbnail-slider">
+          <div class="splide" id="thumbnail-slider">
+            <div class="splide__track">
+              <ul class="splide__list m-0 p-0 flex gap-1">
+                {% for image in product.image.all %}
+                <li class="splide__slide overflow-hidden">
+                  <img
+                    src="{{ image.image.url }}"
+                    alt=""
+                    class="rounded-2xl thumbnail w-13 border-0"
+                    data-image="{{ image.color.name }}"
+                  />
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-7">
-        <div class="single-product-details">
-          <h2 class="font-sans Segoe-UI font-bold">{{product.name}}</h2>
-          <p class="font-sans Segoe-UI">{{product.price}} MDL</p>
-          <p class="mt-10 font-sans Segoe-UI text-gray opacity-60">
-            {{product.description}}
-          </p>
-
-          <form
+      <div class="col-md-7 ">
+        <div class="single-product-details ml-28">
+          <h2 class="font-bold text-4xl" style="font-family: Inter">
+            {{product.name}}
+          </h2>
+          <div class="line w-10/12 h-px bg-gray-200 rounded-xl my-14"></div>
+          <div class="prices">
+            <p
+              class="font-sans Segoe-UI mt-6 text-4xl text-[#d4a6ac] font-bold"
+              style="font-family: Inter"
+            >
+              {{product.price}} MDL
+            </p>
+            <p
+              class="font-sans Segoe-UI mt-9 line-through text-3xl"
+              style="font-family: Inter"
+            >
+              5 MDL
+            </p>
+          </div>
+        <form
             action="{% url 'add_to_cart' product.id %}"
             method="post"
             class="add-to-cart-form"
           >
-            {% csrf_token %}
-            <div class="color-swatches">
-              <div class="color-text">
-                <span class="font-sans Segoe-UI">Color:</span>
-              </div>
-
-              <div class="colors">
-                {% for color in product.colors.all %}
-                <a
-                  href="#!"
-                  style="background-color: #{{ color.hex_code }}; border: 0.1px solid black; display: inline-block; position: relative; width: 30px; height: 30px;"
-                  class="swatch-violet"
-                  value="{{ color.name }}"
-                  onclick="selectColor(this);"
-                  data-color="{{ color.name }}"
-                  id="color-selection"
-                >
-                  <input
-                    type="checkbox"
-                    style="
-                      position: absolute;
-                      opacity: 0;
-                      width: 120%;
-                      height: 120%;
-                      top: -6px;
-                      left: -2px;
-                    "
-                    class="color-checkbox"
-                    required
-                  />
-                </a>
-
-                {% endfor %}
-              </div>
-            </div>
-            <div class="product-size">
-              <span class="font-sans Segoe-UI">Size:</span>
-              <select
-                class="form-control font-sans Segoe-UI"
-                id="selected-size"
-                name="selected_size"
+          <div class="line w-10/12 h-px bg-gray-200 rounded-xl my-14"></div>
+          <div class="flex-col justify-start items-start mt-10">
+            <div class="color-text">
+              <span
+                class="font-sans Segoe-UI text-3xl opacity-80 text-gray-500"
+                style="font-family: Inter"
+                >Culoarea:</span
               >
-                {% for size in product.size.all %}
-                <option class="font-sans Segoe-UI" value="{{ size.name }}">
-                  {{ size.name }}
-                </option>
-                {% endfor %}
-              </select>
             </div>
 
+            <div class="mt-6 accent-blue flex gap-10">
+              {% for color in product.colors.all %}
+              <a
+                href="#!"
+                style="background-color: #{{ color.hex_code }}; background-color: rgba({{ color.hex_code }}, 0.2);  display: inline-block; position: relative; width: 40px; height: 40px;"
+                class="swatch-violet rounded-full bg- h-20"
+                value="{{ color.name }}"
+                onclick="selectColor(this);"
+                data-color="{{ color.name }}"
+                id="color-selection"
+                required
+              >
+                <input
+                required
+                  type="checkbox"
+                  style="
+                    position: absolute;
+                    opacity: 0;
+                    width: 120%;
+                    height: 120%;
+                    top: -6px;
+                    left: -2px;
+                  "
+                  class="color-checkbox"
+                  required
+                />
+              </a>
+
+              {% endfor %}
+            </div>
+          </div>
+          <div class="line w-10/12 h-px bg-gray-200 rounded-xl my-14"></div>
+
+         
+            {% csrf_token %}
+
+            <div class="flex-col my-10 mb-16">
+              <span
+                class="font-sans Segoe-UI text-3xl opacity-80 text-gray-500"
+                style="font-family: Inter"
+                >Mărimea:</span
+              >
+              <div class="sizes flex">
+                <div class="size gap-20 mt-8 flex ml-6">
+                  {% for size in product.size.all %}
+                  <label
+                    class="relative inline-block flex items-center justify-center m-auto font-thin"
+                    style="font-family: Inter"
+                  >
+                    <input
+                      type="checkbox"
+                      class="size-checkbox absolute appearance-none h-16 w-16 border m-auto rounded-md border-solid opacity-25 checked:opacity-100"
+                      name="size" required
+                    />
+                    {{ size.name }}
+                  </label>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="line w-10/12 h-px bg-gray-200 rounded-xl my-14"></div>
             <div class="buttons flex items-center">
               {% csrf_token %}
               <input type="hidden" name="product" value="{{ product.id }}" />
               <input type="hidden" name="selected_color" id="selected-color" />
               <input type="hidden" name="i" id="hidden-i" value="90" />
               <a
-                class="bg-black text-white rounded-md font-sans Segoe-UI px-5 py-4 hover:text-white"
-              >
-                <input type="submit" name="action" value="Adaugă în coș"
+                class="bg-[#EBC1C5] text-white rounded-md font-sans Segoe-UI px-10 py-5 hover:text-white flex items-center justify-center gap-3"
+                style="font-family: Inter" class="cd-add-to-cart js-cd-add-to-cart" data-price="{{product.price}}"
+                ><i class="fa-solid fa-cart-plus"></i>
+                <input type="submit" name="action" value="Adaugă în coș" class="cd-add-to-cart js-cd-add-to-cart" data-price="{{product.price}}"  
               /></a>
 
               <a
-                class="bg-black text-white hover:text-white rounded-md font-sans Segoe-UI px-8 py-4"
-                ><input type="submit"  name="action" value="Cumpără" />
+                class="bg-[#EBC1C5] text-white hover:text-white rounded-md font-sans Segoe-UI px-10 py-5 flex items-center justify-center gap-3"
+                style="font-family: Inter"
+              >
+                <i class="fa-solid fa-credit-card"></i>
+                <input type="submit" name="action" value="Cumpără" />
               </a>
             </div>
           </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12">
-      <div class="tabCommon mt-20">
-        <ul class="nav nav-tabs">
-          <li class="active">
-            <a
-              data-toggle="tab"
-              href="#details"
-              aria-expanded="true"
-              class="font-sans Segoe-UI"
-              >Details</a
-            >
-          </li>
-        </ul>
-        <div class="tab-content patternbg">
-          <div id="details" class="font-sans Segoe-UI">
-            <h4 class="font-semibold">Product Description</h4>
-            <div>
-              <p class="font-sans Segoe-UI">{{product.description}}</p>
+          <div
+            class="return-delivery flex-col p-10 g-7 rounded-2xl mt-14 mr-24"
+            style="border: 1px solid #e4e4e4"
+          >
+            <div class="free-del flex gap-5">
+              <div class="icon-del mt-1"><i class="fa-solid fa-truck text-2xl"></i></div>
+              <div class="free-del-inner flex-col">
+                <div
+                  style="font-family: Inter"
+                  class="font-bold text-[#1D364D]"
+                > Livrare Gratuita
+                </div>
+                <div style="font-family: Inter" class="text-[#726C6C]">
+                  Dispuneti De Livrare Gratuita Toata Tara
+                </div>
+              </div>
+            </div>
+            <div
+              class="line w-11/12 h-px bg-gray-200 rounded-xl my-8 m-auto"
+            ></div>
+            <div class="return flex gap-5">
+              <div class="icon-del">
+                <i class="fa-solid fa-bag-shopping text-2xl"></i>
+              </div>
+              <div class="return-inner flex-col">
+                <div
+                  style="font-family: Inter"
+                  class="font-bold text-[#1D364D]"
+                >
+                  Returnarea Produsul
+                </div>
+                <div style="font-family: Inter" class="text-[#726C6C]">
+                  Dispuneti De Posibilitatea de Returna Produsul in Termen de 30
+                  zile
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="description mx-96">
+    <div class="descriere-tit text-4xl" style="font-family: Inter">
+      Descrierea Produsului
+    </div>
+    <div class="line w-3/12 h-px bg-gray-200 rounded-xl my-6 "></div>
+    <div class="product-desc">
+      <p
+        class="mt-10 font-sans Segoe-UI text-gray opacity-60 mr-28 text-2xl leading-[30px]"
+        style="font-family: Inter"
+      >
+        {{product.description |linebreaksbr}}
+      </p>
     </div>
   </div>
 </section>
