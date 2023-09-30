@@ -169,3 +169,6 @@ urlpatterns = [
     path('checkout_buy/<int:product_id>/', checkout_view, name='checkout_buy')
 
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
