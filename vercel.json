@@ -2,7 +2,7 @@
     "version": 2,
     "builds": [
       {
-        "src": "lookfeminine/wsgi.py",
+        "src": "lookfeminine/lookfeminine/wsgi.py",
         "use": "@vercel/python",
         "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.4" }
       },
@@ -21,7 +21,7 @@
       },
       {
         "src": "/(.*)",
-        "dest": "lookfeminine/wsgi.py"
+        "dest": "lookfeminine/lookfeminine/wsgi.py"
       }
     ]
   }
