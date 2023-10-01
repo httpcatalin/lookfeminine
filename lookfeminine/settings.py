@@ -52,12 +52,6 @@ MIDDLEWARE = [
 ]
 ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
-STATIC_URL = 'static/'
-MEDIA_URL = 'images/'
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
-
 
 
 
@@ -74,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -140,10 +135,19 @@ USE_TZ = True
 # settings.py
 
 # Static files (CSS, JavaScript, images)
-STATIC_URL = '/static/'
 
-# Directory where collectstatic will place static files for deployment
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+
+STATIC_URL = '/staticfiles/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'lookfeminine_staticfiles'),
+    ]
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles_cdn')
+
+MEDIA_URL = '/mediafiles/'
+
+STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles_cdn')
+
+
