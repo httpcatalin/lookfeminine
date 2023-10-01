@@ -144,3 +144,6 @@ STATIC_URL = '/static/'
 
 # Directory where collectstatic will place static files for deployment
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
