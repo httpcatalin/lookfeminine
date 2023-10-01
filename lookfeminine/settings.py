@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
+# ALLOWED_HOSTS = ['.vercel.app','now.sh','127.0.0.1','localhost']
 
 
 
@@ -137,19 +137,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, images)
 
 
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
-
-STATIC_URL = '/staticfiles/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'lookfeminine_staticfiles'),
-    ]
-
-# settings.py
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-MEDIA_URL = '/mediafiles/'
-
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles_cdn')
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static'),
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
 
 

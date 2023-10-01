@@ -1,10 +1,11 @@
-{
+
+  {
     "version": 2,
     "builds": [
       {
         "src": "lookfeminine/wsgi.py",
         "use": "@vercel/python",
-        "config": { "maxLambdaSize": "15mb", "runtime": "python3.11.4" }
+        "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
       },
       {
         "src": "build_files.sh",
@@ -25,4 +26,3 @@
       }
     ]
   }
-  
