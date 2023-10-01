@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-hv7lw12s9wa5lkmkgi7kq@*a*$m23m$_k&u@m9&8)zd((*p03e'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -144,10 +144,12 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'lookfeminine_staticfiles'),
     ]
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'staticfiles_cdn')
+# settings.py
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 MEDIA_URL = '/mediafiles/'
 
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles_cdn')
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'mediafiles_cdn')
 
 
